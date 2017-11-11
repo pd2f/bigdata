@@ -1,0 +1,5 @@
+from pyspark.sql import HiveContext
+from pyspark import SparkContext
+h = HiveContext(sc)
+df = h.sql("select * from app.importacao ")
+df.show()
