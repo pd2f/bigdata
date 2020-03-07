@@ -1,0 +1,25 @@
+## FLUME  KAFKA
+sptrans.sources = source1
+sptrans.channels = channel1 
+sptrans.sinks = sink1 
+
+#source para executar a shell e dar o get na api
+sptrans.sources.source1.type = exec
+sptrans.sources.source1.command = sh /home/cloudera/sptrans.sh
+sptrans.sources.source1.channels = channel1
+sptrans.sources.source1.restartThrottle = 60000
+sptrans.sources.source1.restart =true
+
+#canais em memoria
+sptrans.channels.channel1.type = memory
+sptrans.channels.channel1.capacity = 100000
+sptrans.channels.channel1.transactionCapacity = 100000
+
+#sink para enviar os dados para o Kafka
+sptrans.sinks.sink1.channel = channel1 
+sptrans.sinks.sink1.type = org.apache.flume.sink.kafka.KafkaSink
+sptrans.sinks.sink1.kafka.topic = sptrans
+sptrans.sinks.sink1.kafka.bootstrap.servers = localhost:9092
+sptrans.sinks.sink1.kafka.flumeBatchSize = 200
+sptrans.sinks.sink1.kafka.producer.acks = 1
+sptrans.sinks.sink1.kafka.producer.linger.ms = 1
