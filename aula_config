@@ -1,0 +1,16 @@
+sudo su -
+mkdir /etc/yum.repos.d/bkp
+mv /etc/yum.repos.d/cloudera-* /etc/yum.repos.d/bkp
+yum clean all 
+yum check 
+yum erase apf 
+yum update ca-certificates 
+yum upgrade
+
+sudo yum install centos-release-scl
+sudo yum install rh-python36
+scl enable rh-python36 bash
+sudo easy_install-3.6 pip
+sudo pip install requests
+
+
